@@ -1,24 +1,22 @@
-import logo from './logo.svg';
+import { useState } from 'react';
 import './App.css';
+import CreatePlayer from './components/CreatePlayer';
+import Player from './components/Player';
 
 function App() {
+  const [players, setPlayers] = useState([]);
+
+  function onCreatePlayer(newPlayer) {
+    setPlayers([...players, newPlayer]);
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <CreatePlayer onSubmit={onCreatePlayer} />
+      {
+        players.map(player => <Player key={player.id} {...player} />)
+      }
+    </>
   );
 }
 
